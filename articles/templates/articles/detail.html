@@ -6,11 +6,9 @@
 
 <h2>{{ articles.title }} | <span>{{ articles.content }}</span></h2>
 
-
-
 <hr>
 <h4>댓글</h4>
-<form method="POST">
+<form action="{% url 'articles:comment' articles.pk %}" method="POST">
     {% csrf_token %}
     {% bootstrap_form commentform %}
     {% bootstrap_button button_type='submit' content="OK" %}

@@ -11,9 +11,19 @@ from django.core.paginator import Paginator
 
 
 
+
 @require_safe
+
 def index(request):
-    return render(request, 'articles/index.html')
+    page = request.GET.get('page','1')
+    articles = Article.objects.order_by('-pk')
+    paginator = Paginator(articles,10)
+    page_obj = paginator.get_page(page)
+    context = {
+        'articles': page_obj
+    }
+
+    return render(request, 'articles/index.html', context)
 
 @login_required
 def create(request):
@@ -57,28 +67,15 @@ def delete(request, pk):
         article.delete()
         return redirect('articles:index')
 
-    page = request.GET.get('page','1')
-    articles = Article.objects.order_by('-pk')
-    paginator = Paginator(articles,10)
-    page_obj = paginator.get_page(page)
-    context = {
-        'articles': page_obj
-    }
-    return render(request, 'articles/index.html', context)
-
-
-
 
 def detail(request,pk):
     articles = Article.objects.get(pk=pk)
     commentform = MakeCommentForm()
     context={
-        'articles' :  articles,
-        'commentform':commentform
+        'articles':articles,
+        'commentform':commentform,
     }
     return(request,"articles/detail.html",context)
-    
-
 
 
 def comment(request,article_pk):
