@@ -1,9 +1,13 @@
 {% extends 'base.html' %}
+{% block body %}
 
-{% blockbody %}
+<a href="{% url 'accounts:update' request.user.pk %}">회원정보수정</a>
 <h1>{{ user.username }}</h1>
 <p>팔로우: 0</p>
 <p>팔로워: 0</p>
+
+
+
 
 <div class="row">
     <div class="col-6">

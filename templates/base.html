@@ -2,6 +2,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,11 +12,16 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <title>HMC</title>
 </head>
+
 <body>
-    
+    <a href="{% url 'accounts:signup' %}">회원가입페이지</a>
+    <a href="{% url 'accounts:login' %}">로그인</a>
+    <a href="{% url 'accounts:detail' request.user.pk %} ">{{request.user}}</a>
+
 
 
     {% block body %}{% endblock body %}
     {% bootstrap_javascript %}
 </body>
+
 </html>

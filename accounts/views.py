@@ -5,16 +5,18 @@ from django.contrib import messages
 from django.contrib.auth import login as my_login, logout as my_logout, get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
-# from django.contrib.auth.forms import UserCreationForm
-from .forms import CustomUserChangeForm, CustomUserCreationForm
+from .forms import CustomUserChangeForm ,CustomUserCreationForm
 from django.views.decorators.http import require_POST
+
+
+
 
 def signup(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            auth_login(request,user)
+            my_login(request,user)
             return redirect('articles:index')
     else:
         form = CustomUserCreationForm()
@@ -23,17 +25,21 @@ def signup(request):
     }
     return render(request, 'accounts/signup.html', context)
 
+
 @require_POST
 @login_required
 def ID_delete(request):
     request.user.delete()
+    my_logout(request)
     return redirect('articles:index')
 
   
 
 # Create your views here.
 def detail(request, pk):
-    user = get_user_model()
+    user = get_user_model().objects.get(pk=pk)
+    
+    
     context = {
         'user': user
     }
@@ -41,14 +47,14 @@ def detail(request, pk):
     
     
     
-    def login (request):
-    if request.method == 'post':
-        form = AuthenticationForm(request.POST)
+def login(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request, data = request.POST)
         if form.is_valid():
             my_login(request,form.get_user())
-            return redirect(" article:index ")
+            return redirect("articles:index")
     else:
-        form = AuthenticationForm(request.POST)
+        form = AuthenticationForm(request)
     context = {
         'form':form
     }
@@ -57,16 +63,17 @@ def detail(request, pk):
 
 def update (request,pk):
     if request.method == 'POST':
-        user =get_user_model().objects.get(pk=pk)
+        user = get_user_model().objects.get(pk=pk)
         if request.user == user.user:
-            form = AuthenticationForm(request.POST ,instance=user)
+            form = CustomUserChangeForm(request.POST ,instance=request.user)
             form.is_valid()
             form.save()
             return redirect("article:index")
     else:
-        form = AuthenticationForm(instance=user)
+        form = CustomUserChangeForm(instance=request.user)
     context={
         'form':form
+        
     }
     return render (request,"accounts/update.html",context)
 
