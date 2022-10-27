@@ -15,7 +15,7 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark border-bottom bg-primary">
-        <div class="container-fluid">
+        <div class="container">
             <a href="{% url 'articles:index' %}" class="navbar-brand">Home</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -48,8 +48,9 @@
     </nav>
 
 
-
-    {% block body %}{% endblock body %}
+    <div class="container">
+        {% block body %}{% endblock body %}
+    </div>
     {% bootstrap_javascript %}
 
 </body>
