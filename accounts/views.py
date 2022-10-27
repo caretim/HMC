@@ -30,4 +30,12 @@ def ID_delete(request):
     request.user.delete()
     return redirect('articles:index')
 
-    
+  
+
+# Create your views here.
+def detail(request, pk):
+    user = get_user_model()
+    context = {
+        'user': user
+    }
+    return render(request, 'accounts/detail.html', context)
