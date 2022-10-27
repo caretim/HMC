@@ -75,11 +75,11 @@ def detail(request,pk):
         'articles':articles,
         'commentform':commentform,
     }
-    return(request,"articles/detail.html",context)
+    return render (request,"articles/detail.html",context)
 
 
-def comment(request,article_pk):
-    article = Article.objects.get(pk=article_pk)
+def comment(request, pk):
+    article = Article.objects.get(pk=pk)
     if request.method == "POST":
         form = MakeCommentForm(request.POST)
         if form.is_valid():
@@ -87,5 +87,5 @@ def comment(request,article_pk):
             comment.user = request.user
             comment.article = article
             comment.save()
-            return redirect("articles:detail", article_pk)
+            return redirect("articles:detail", pk)
 

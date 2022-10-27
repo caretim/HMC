@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load django_bootstrap5 %}
 {% block body %}
 
 <h1> 글 읽기 </h1>
@@ -21,7 +21,7 @@
 
 {{ comment.content }}
 
-{{% endfor %}}
+{% endfor %}
 
 
 {% endblock %}
