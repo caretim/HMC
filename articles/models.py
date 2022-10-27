@@ -1,5 +1,5 @@
 
-
+from multiselectfield import MultiSelectField
 from django.db import models
 from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFill
@@ -7,30 +7,30 @@ from django.conf import settings
 
 
 
-ot = [
+ot = (
     (1,'근지구력'),
     (2,'심폐지구력'),
     (3,'근력'),
-    ]
+    )
 
-part_ =[
+part_ =(
     (1,'윗가슴'),
-    (1,'스트레칭'),
-    (2,'가슴중앙'),
-    (3,'아랫가슴'),
-    (4,'승모근'),
-    (5,'광배근'),
-    (6,'척추기립근'),
-    (7,'전면삼각근'),
-    (8,'후면삼각근'),
-    (9,'측면삼각근'),
-    (10,'이두근'),
-    (11,'삼두근'),
-    (12,'복근'),
-    (13,'대퇴이두근'),
-    (14,'대퇴사두근'),
-    (15,'비복근'),
-]
+    (2,'스트레칭'),
+    (3,'가슴중앙'),
+    (4,'아랫가슴'),
+    (5,'승모근'),
+    (6,'광배근'),
+    (7,'척추기립근'),
+    (8,'전면삼각근'),
+    (9,'후면삼각근'),
+    (10,'측면삼각근'),
+    (11,'이두근'),
+    (12,'삼두근'),
+    (13,'복근'),
+    (14,'대퇴이두근'),
+    (15,'대퇴사두근'),
+    (16,'비복근'),
+)
 
 
 # Create your models here.
@@ -44,9 +44,9 @@ class Article(models.Model):
                                 options={'quality': 80})
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_articles')
-    otwo = models.IntegerField(choices=ot)
+    otwo = MultiSelectField(choices=ot,max_choices=6)
     workout = models.CharField(max_length=30)
-    part = models.IntegerField(choices=part_)
+    part = MultiSelectField(choices=part_, max_choices=6)
 
 
 class Comment(models.Model):
