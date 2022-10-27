@@ -61,7 +61,13 @@ def login(request):
     return render (request, "accounts/login.html",context)
 
 
-def update (request,pk):
+def logout(request):
+    my_logout(request)
+    messages.warning(request, '로그아웃 하였습니다.')
+    return redirect('articles:index')
+
+
+def update(request,pk):
     if request.method == 'POST':
         user = get_user_model().objects.get(pk=pk)
         if request.user == user.user:
@@ -76,4 +82,6 @@ def update (request,pk):
         
     }
     return render (request,"accounts/update.html",context)
+
+    
 
