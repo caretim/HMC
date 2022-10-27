@@ -77,3 +77,7 @@ def update (request,pk):
     }
     return render (request,"accounts/update.html",context)
 
+def logout(request):
+    my_logout(request)
+    return redirect('articles:index')
+
