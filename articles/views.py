@@ -88,5 +88,5 @@ def comment(request, pk):
             comment.user = request.user
             comment.article = article
             comment.save()
-           return render (request,"articles/detail.html",context)
+            return render (request,"articles/detail.html",pk)
 
