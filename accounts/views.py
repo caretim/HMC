@@ -83,5 +83,3 @@ def update(request,pk):
     }
     return render (request,"accounts/update.html",context)
 
-    
-
