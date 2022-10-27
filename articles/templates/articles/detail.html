@@ -17,7 +17,7 @@
 
 <hr>
 
-{% for comment in articles.comment_all %}
+{% for comment in articles.comment_set.all %}
 
 <p>{{ comment.content }}</p>
 
