@@ -63,6 +63,7 @@ def signup(request):
                 else:
                     tier = 8
             user.tier = tier
+            user.score = score
             user.save()
             my_login(request, user)
             return redirect("articles:index")
@@ -162,6 +163,7 @@ def update(request, pk):
                 else:
                     tier = 8
         user.tier = tier
+        user.score = score
         user.save()
         return redirect("articles:index")
     else:

@@ -3,12 +3,13 @@
 
 {% block body %}
 
-
-<h1> 글수정하기 </h1>
+<div class="container" style="padding: 40px 30px;">
+<h1> 글 수정하기 </h1>
 
 <form action="" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     {% bootstrap_form article_form %}
-    {% bootstrap_button button_type="submit" content="OK" %}
+    <button type="submit" class="btn btn-success">수정하기</button>
 </form>
+</div>
 {% endblock %}

@@ -25,3 +25,4 @@ class User(AbstractUser):
     )
     gender = MultiSelectField(choices=ge, max_choices=1)
     tier = models.IntegerField(default=0)
+    score = models.IntegerField(default=0)

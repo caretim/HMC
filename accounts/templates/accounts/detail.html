@@ -1,17 +1,48 @@
 {% extends 'base.html' %}
 {% block body %}
 
-
+{% load static %}
 {% if request.user == user %}
 <a href="{% url 'accounts:update' request.user.pk %}">회원정보수정</a>
 {% endif %}
 
 <h1>{{ user.username }}님의 프로필</h1>
 {%if user.tier == 1 %}
-<img src="" alt="">
-<h1>티어{{user.tier}}</h1>
+<img src="{% static 'images/t1.png' %}" height="100" width="100" alt="">
+<h1>챌린저티어{{user.tier}}</h1>
+
+{%elif user.tier == 2 %}
+<img src="{% static 'images/t2.png' %}" height="100" width="100" alt="">
+<h1>마스터티어{{user.tier}}</h1>
+
+{%elif user.tier == 3 %}
+<img src="{% static 'images/t3.png' %}" height="100" width="100" alt="">
+<h1>다이아티어{{user.tier}}</h1>
+
+{%elif user.tier == 4 %}
+<img src="{% static 'images/t4.png' %}" height="100" width="100" alt="">
+<h1>플래티넘티어{{user.tier}}</h1>
+
+{%elif user.tier == 5 %}
+<img src="{% static 'images/t5.png' %}" height="100" width="100" alt="">
+<h1>골드티어{{user.tier}}</h1>
+
+{%elif user.tier == 6 %}
+<img src="{% static 'images/t6.png' %}" height="100" width="100" alt="">
+<h1>실버티어{{user.tier}}</h1>
+
+{%elif user.tier == 7 %}
+<img src="{% static 'images/t7.png' %}" height="100" width="100" alt="">
+<h1>브론즈티어{{user.tier}}</h1>
+
+{%elif user.tier == 8 %}
+<img src="{% static 'images/t8.png' %}" height="100" width="100" alt="">
+<h1>아이언티어{{user.tier}}</h1>
+{%endif%}
+
 
 {% if request.user != user %}
+
 <div>
     <button><a class="text-decoration-none" href="{% url 'accounts:follow' user.pk %}">
             {% if request.user in user.followings.all %}
