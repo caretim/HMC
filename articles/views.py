@@ -1,9 +1,6 @@
 from django.shortcuts import render, redirect
-
 from django.contrib.auth.decorators import login_required
-
 from .forms import ArticleForm, MakeCommentForm
-
 from .models import Article
 from django.contrib.auth import get_user_model
 from django.views.decorators.http import require_safe
@@ -81,4 +78,21 @@ def comment(request, pk):
             comment.user = request.user
             comment.article = article
             comment.save()
+
             return redirect("articles:detail", pk)
+
+
+def search(request):
+    if request.method == "POST":
+        searched = request.POST["searched"]
+        articles = Article.objects.filter(title__contains=searched)
+        return render(
+            request,
+            "articles/searched.html",
+            {"searched": searched, "articles": articles},
+        )
+    else:
+        return render(
+            request,
+            "articles/searched.html",
+        )
