@@ -1,3 +1,4 @@
+from urllib.parse import uses_fragment
 from django.shortcuts import render, redirect, get_object_or_404
 
 # from .models import User
@@ -30,11 +31,36 @@ def ID_delete(request):
     my_logout(request)
     return redirect("articles:index")
 
-
 # Create your views here.
 def detail(request, pk):
     user = get_user_model().objects.get(pk=pk)
-    context = {"user": user}
+    weight = user.userweights
+    tall = user.usertall
+    fat = (weight*user.userfat)/100
+    standard_w = ((tall/100)**2)*22
+    standard_nf = standard_w*0.85
+    standard_f = standard_w*0.15
+    score = 80 -(standard_nf-(weight-fat))+(standard_f-fat)
+    if score > 150:
+        tier = 1
+    elif score > 130 :
+        tier = 2
+    elif score > 110:
+        tier = 3
+    elif score > 90 :
+        tier = 4
+    elif score > 80 :
+        tier = 5
+    elif score > 70 :
+        tier = 6
+    elif score > 60 :
+        tier = 7
+    else:
+        tier = 8
+    context = { 
+            "user": user,
+            "score": score,
+            "tier": tier }
     return render(request, "accounts/detail.html", context)
 
 
@@ -84,3 +110,6 @@ def follow(request, pk):
         else:
             user.followings.add(request.user)
         return redirect("accounts:detail", pk)
+
+
+

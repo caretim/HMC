@@ -3,13 +3,23 @@
     width: 100px;
     height: 100px;
     background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .pokemon2 {
+    background-image: url(../images/2.jpg);
+    width: 100px;
+    height: 100px;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.pokemon3 {
     background-image: url(../images/3.jpg);
     width: 100px;
     height: 100px;
     background-repeat: no-repeat;
+
 }
 
 
@@ -27,6 +37,4 @@
 .base-container-div {
     background-color: rgb(78, 82, 82);
     border-radius: 1rem;
-    margin-top: 3rem;
-
-}
+    margin-top: 3rem;}
