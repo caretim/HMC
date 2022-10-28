@@ -18,14 +18,15 @@
                     {% if articles %}
                     {% for article in articles %}
                     <tr>
-                        <td>{{ forloop.counter }}</td>
+                        <td class='text-white'>{{ article.pk }}</td>
                         <td>
-                        <a href="{% url 'accounts:detail' article.user.pk %}" style="text-decoration:none;">{{article.user }}</a>
+                            <a href="{% url 'accounts:detail' article.user.pk %}" class='text-decoration-none text-white' >{{article.user }}</a>
                         </td>
                         <td>
-                            <a href="{% url 'articles:detail' article.pk %}" style="text-decoration:none;">{{article.title }}</a>
+                            <a href="{% url 'articles:detail' article.pk %}"
+                                class='text-decoration-none text-white'>{{article.title }}</a>
                         </td>
-                        <td>{{ article.created_at }}</td>
+                        <td class='text-white'>{{ article.created_at }}</td>
                     </tr>
                     {% endfor %}
                     {% else %}
@@ -36,7 +37,7 @@
                 </tbody>
             </table>
 
-               <!-- 페이징처리 start-->
+            <!-- 페이징처리 start-->
             <ul class="pagination justify-content-center">
                 <!-- 이전페이지 -->
                 {% if articles.has_previous %}
@@ -50,30 +51,30 @@
                 {% endif %}
 
                 <!-- 페이지 리스트-->
-                {% for page_number in articles.paginator.page_range  %}
+                {% for page_number in articles.paginator.page_range %}
                 {% if page_number >= articles.number|add:-5 and page_number <= articles.number|add:5 %}
-                {% if page_number == articles.number %}
-                <li class="page-item active" aria-current="page">
-                    <a href="?page={{ page_number }}" class="page-link">{{ page_number }}</a>
+                {% if page_number == articles.number %} <li class="page-item active" aria-current="page">
+                <a href="?page={{ page_number }}" class="page-link text-decoration-none">{{ page_number }}</a>
                 </li>
                 {% else %}
                 <li class="page-item">
-                    <a href="?page={{ page_number }}" class="page-link">{{ page_number }}</a>
+                    <a href="?page={{ page_number }}" class="page-link text-decoration-none">{{ page_number }}</a>
                 </li>
                 {% endif %}
                 {% endif %}
                 {% endfor %}
 
-                <!-- 다음페이지-->
+                    <!-- 다음페이지-->
 
-                {% if articles.has_next %}
-                <li class="page-item">
-                    <a href="?page={{ articles.next_page_number }}" class="page-link">다음</a>
-                </li>
-                {% else %}
-                <li class="page-item disabled">
-                    <a href="#" class="page-link" tabindex="1" aria-disabled="true">다음</a></li>
-                {% endif %}
+                    {% if articles.has_next %}
+                    <li class="page-item">
+                        <a href="?page={{ articles.next_page_number }}" class="page-link">다음</a>
+                    </li>
+                    {% else %}
+                    <li class="page-item disabled">
+                        <a href="#" class="page-link" tabindex="1" aria-disabled="true">다음</a>
+                    </li>
+                    {% endif %}
             </ul>
             <!-- 페이징처리 end-->
 
@@ -89,7 +90,7 @@
             <img src="{% static 'images/t1.png' %}" height="100" width="100" alt="">
             <h3>뇌까지 근육</h3>
             <p> {{user.score}}점 </p>
-            
+
 
             {%elif user.tier == 2 %}
             <img src="{% static 'images/t2.png' %}" height="100" width="100" alt="">
@@ -129,7 +130,7 @@
         </div>
 
         {% else %}
-        <div class="col-lg-2 index-login-div " >
+        <div class="col-lg-2 index-login-div ">
             <form method="POST" action="{% url 'accounts:login' %}">
                 {% csrf_token %}
                 {% bootstrap_form form %}
