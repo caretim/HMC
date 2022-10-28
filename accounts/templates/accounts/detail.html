@@ -1,10 +1,31 @@
 {% extends 'base.html' %}
 {% block body %}
 
+
+{% if request.user == user %}
 <a href="{% url 'accounts:update' request.user.pk %}">회원정보수정</a>
-<h1>{{ user.username }}</h1>
-<p>팔로우: 0</p>
-<p>팔로워: 0</p>
+{% endif %}
+
+<h1>{{ user.username }}님의 프로필</h1>
+
+
+{% if request.user != user %}
+<div>
+    <button><a class="text-decoration-none" href="{% url 'accounts:follow' user.pk %}">
+            {% if request.user in user.followings.all %}
+
+            <p class="m-0">언팔로우</p>
+            {%else%}
+            <p class="m-0">팔로우</p>
+            {%endif%}
+        </a></button>
+</div>
+{% endif %}
+
+
+
+<p class>팔로우: {{user.followings.all.count}}</p>
+<p>팔로워: {{user.followers.all.count}}</p>
 
 
 
@@ -15,21 +36,26 @@
         {% for article in user.article_set.all %}
         <p>
             {{ forloop.counter }}
-            <a href="#">{{ article.title }}</a>
+            <a class="text-decoration-none" href="{% url 'articles:detail' article.pk %}">{{ article.title }}</a>
         </p>
         {% endfor %}
     </div>
 
     <div class="col-6">
         <h3>내가 쓴 댓글</h3>
-        {% for comment in user.commnt_set.all %}
+        {% for comment in user.comment_set.all %}
         <p>
             {{ forloop.counter }}
-            <a href="#">{{ comment.content }}</a>
+            <a class="text-decoration-none" href="{% url 'articles:detail' comment.article.pk %}">{{ comment.content
+                }}</a>
         </p>
         {% endfor %}
     </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+
+</script>
 
 {% endblock body %}
