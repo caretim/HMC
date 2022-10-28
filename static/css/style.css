@@ -4,6 +4,7 @@
     height: 100px;
     background-repeat: no-repeat;
     background-size: cover;
+    border-radius: 10%;
 }
 
 .pokemon2 {
@@ -12,6 +13,7 @@
     height: 100px;
     background-repeat: no-repeat;
     background-size: cover;
+    border-radius: 10%;
 }
 
 .pokemon3 {
@@ -19,12 +21,13 @@
     width: 100px;
     height: 100px;
     background-repeat: no-repeat;
+    border-radius: 10%;
 
 }
 
 
 .bg-img {
-    background-image: url(../images/base.jpg);
+    background-image: url(../images/base2.jpg);
     background-size: cover;
     background-repeat: no-repeat;
 
@@ -35,13 +38,28 @@
 }
 
 .base-container-div {
-    background-color: rgb(78, 82, 82);
+    background-color: rgb(0, 0, 0);
     border-radius: 1rem;
     margin-top: 3rem;
+    opacity: 0.9;
+    padding-left: 100px;
+    padding-right: 100px;
+    color: aliceblue;
+
 }
 
 .index-login-div {
     background-color: rgb(206, 204, 200);
     border-radius: 1rem;
     padding: 15px;
+}
+
+* {
+    font-weight: bolder;
+    text-decoration: none;
+}
+
+.heart-btn {
+    opacity: 0.9;
+    border-radius: 10%;
 }

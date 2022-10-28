@@ -9,35 +9,35 @@
 <h1>{{ user.username }}님의 프로필</h1>
 {%if user.tier == 1 %}
 <img src="{% static 'images/t1.png' %}" height="100" width="100" alt="">
-<h1>챌린저티어{{user.tier}}</h1>
+<h1>Challenger{{user.tier}} | {{ user.score }}</h1>
 
 {%elif user.tier == 2 %}
 <img src="{% static 'images/t2.png' %}" height="100" width="100" alt="">
-<h1>마스터티어{{user.tier}}</h1>
+<h1>Master{{user.tier}} | {{ user.score }}</h1>
 
 {%elif user.tier == 3 %}
 <img src="{% static 'images/t3.png' %}" height="100" width="100" alt="">
-<h1>다이아티어{{user.tier}}</h1>
+<h1>Diamond{{user.tier}} | {{ user.score }}</h1>
 
 {%elif user.tier == 4 %}
 <img src="{% static 'images/t4.png' %}" height="100" width="100" alt="">
-<h1>플래티넘티어{{user.tier}}</h1>
+<h1>Platinum{{user.tier}} | {{ user.score }}</h1>
 
 {%elif user.tier == 5 %}
 <img src="{% static 'images/t5.png' %}" height="100" width="100" alt="">
-<h1>골드티어{{user.tier}}</h1>
+<h1>Gold{{user.tier}} | {{ user.score }}</h1>
 
 {%elif user.tier == 6 %}
 <img src="{% static 'images/t6.png' %}" height="100" width="100" alt="">
-<h1>실버티어{{user.tier}}</h1>
+<h1>Silver{{user.tier}} | {{ user.score }}</h1>
 
 {%elif user.tier == 7 %}
 <img src="{% static 'images/t7.png' %}" height="100" width="100" alt="">
-<h1>브론즈티어{{user.tier}}</h1>
+<h1>Bronze{{user.tier}} | {{ user.score }}</h1>
 
 {%elif user.tier == 8 %}
 <img src="{% static 'images/t8.png' %}" height="100" width="100" alt="">
-<h1>아이언티어{{user.tier}}</h1>
+<h1>Iron{{user.tier}} | {{ user.score }}</h1>
 {%endif%}
 
 

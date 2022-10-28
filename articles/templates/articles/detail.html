@@ -8,22 +8,21 @@
 <h2>{{ articles.title }} | <span>{{ articles.content }}</span></h2>
 
 <hr>
-<h4>댓글 |
-</h4>
+<h4>댓글 | {{ articles.comment_set.count }}</h4>
 
 {% if request.user in article.like_users.all %}
-<button>
+
     <div onclick="" id="like-btn" data-article-id="{{ articles.pk }}" class="pokemon1">
     </div>
-</button>
+
 {% else %}
-<button>
+
     <div id="like-btn" onclick="" data-article-id="{{ articles.pk }}" class="pokemon2">
     </div>
-</button>
+
 {% endif %}
 추천
-<span id="like-count">{{ article.likecount }}</span>
+<span id="like-count">{{ articles.likecount_set.count }}</span>
 <form action="{% url 'articles:comment' articles.pk %}" method="POST">
     {% csrf_token %}
     {% bootstrap_form commentform %}
