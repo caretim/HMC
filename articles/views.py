@@ -90,3 +90,11 @@ def comment(request, pk):
             comment.save()
             return render (request,"articles/detail.html",pk)
 
+
+def search(request):
+        if request.method == 'POST':
+            searched = request.POST['searched']        
+            articles = Article.objects.filter(title__contains=searched)
+            return render(request, 'articles/searched.html', {'searched': searched, 'articles': articles})
+        else:
+                return render(request, 'articles/searched.html',)
