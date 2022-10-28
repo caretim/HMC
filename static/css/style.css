@@ -11,3 +11,22 @@
     height: 100px;
     background-repeat: no-repeat;
 }
+
+
+.bg-img {
+    background-image: url(../images/base.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+
+}
+
+.base-footer {
+    background-color: rgb(66, 66, 66);
+}
+
+.base-container-div {
+    background-color: rgb(78, 82, 82);
+    border-radius: 1rem;
+    margin-top: 3rem;
+
+}

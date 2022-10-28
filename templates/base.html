@@ -13,28 +13,30 @@
     <title>HMC</title>
 </head>
 
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark border-bottom bg-primary">
+<body class="bg-img">
+    <nav class="navbar navbar-expand-lg navbar-dark border-bottom bg-dark mb-5">
         <div class="container">
             <a href="{% url 'articles:index' %}" class="navbar-brand">Home</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     {% if request.user.is_authenticated %}
-                    <li class="nav-item">     
-                    <a class="nav-link" href="{% url 'accounts:detail' request.user.pk %}">{{ request.user }}</a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'accounts:detail' request.user.pk %}">{{ request.user }}</a>
                     </li>
-                    <li class="nav-item">    
+                    <li class="nav-item">
                         <a href="{% url 'accounts:logout' %}" class="nav-link">{{ user.username }} (로그아웃)</a>
                     </li>
                     <li class="nav-item">
                         <a href="{% url 'accounts:update' request.user.pk %}" class="nav-link">회원정보수정</a>
                     </li>
                     {% else %}
-                    <li class="nav-item"> 
-                    <a href="{% url 'accounts:login' %}" class="nav-link">로그인</a>
+                    <li class="nav-item">
+                        <a href="{% url 'accounts:login' %}" class="nav-link">로그인</a>
                     </li>
                     {% endif %}
                     <li>
@@ -52,19 +54,19 @@
             </div>
         </div>
     </nav>
+    <div style="background-color: rgb(245, 247, 248);  margin: 0px 100px;">
 
+        <div class=" container base-container-div">
+            {% block body %}{% endblock body %}
+        </div>
 
-    <div class="container">
-        {% block body %}{% endblock body %}
     </div>
-
-
-    <footer class="text-center mt-5" style="position:absoulte; bottom:0; font-size: 10px; font-weight: 500">
-        PAIR-PJT by jaeyoon,joonhong,seungchan
+    <footer class="text-center mt-5 w-100" style="margin: 15rem; bottom:0; font-size: 15px; ">
+        <p style="color: bisque;">PAIR-PJT by jaeyoon,joonhong,seungchan</p>
     </footer>
 
     {% bootstrap_javascript %}
-  
+
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </body>
 
