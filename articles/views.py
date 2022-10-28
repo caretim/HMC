@@ -6,15 +6,20 @@ from django.contrib.auth import get_user_model
 from django.views.decorators.http import require_safe
 from django.core.paginator import Paginator
 from django.http import JsonResponse
-
+from django.contrib.auth.forms import AuthenticationForm
 @require_safe
 def index(request):
     page = request.GET.get("page", "1")
     articles = Article.objects.order_by("-pk")
     paginator = Paginator(articles, 10)
     page_obj = paginator.get_page(page)
-    context = {"articles": page_obj}
+    form = AuthenticationForm()
 
+    context = {
+        "articles": page_obj,
+        "form": form,
+        }
+    
     return render(request, "articles/index.html", context)
 
 
