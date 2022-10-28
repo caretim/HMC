@@ -93,7 +93,6 @@ def like(request, pk):
     return JsonResponse(context)
 
 
-     
 
 
 def search(request):
