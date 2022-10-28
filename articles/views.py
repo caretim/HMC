@@ -7,6 +7,8 @@ from django.views.decorators.http import require_safe
 from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.contrib.auth.forms import AuthenticationForm
+
+
 @require_safe
 def index(request):
     page = request.GET.get("page", "1")
@@ -14,12 +16,62 @@ def index(request):
     paginator = Paginator(articles, 10)
     page_obj = paginator.get_page(page)
     form = AuthenticationForm()
+    user = get_user_model().objects.get(pk=pk)
+    weight = user.userweights
+    tall = user.usertall
+    if user.gender == 1:
+        fat = (weight * user.userfat) / 100
+        standard_w = ((tall / 100) ** 2) * 22
+        standard_nf = standard_w * 0.85
+        standard_f = standard_w * 0.15
+        score = 80 - (standard_nf - (weight - fat)) + (standard_f - fat)
+        if score > 150:
+            tier = 1
+        elif score > 130:
+            tier = 2
+        elif score > 110:
+            tier = 3
+        elif score > 90:
+            tier = 4
+        elif score > 80:
+            tier = 5
+        elif score > 70:
+            tier = 6
+        elif score > 60:
+            tier = 7
+        else:
+            tier = 8
+    else:
+        fat = (weight * user.userfat) / 100
+        standard_w = ((tall / 100) ** 2) * 22
+        standard_nf = standard_w * 0.77
+        standard_f = standard_w * 0.23
+        score = 80 - (standard_nf - (weight - fat)) + (standard_f - fat)
+        if score > 150:
+            tier = 1
+        elif score > 130:
+            tier = 2
+        elif score > 110:
+            tier = 3
+        elif score > 90:
+            tier = 4
+        elif score > 80:
+            tier = 5
+        elif score > 70:
+            tier = 6
+        elif score > 60:
+            tier = 7
+        else:
+            tier = 8
 
     context = {
         "articles": page_obj,
         "form": form,
-        }
-    
+        "user": user,
+        "score": score,
+        "tier": tier,
+    }
+
     return render(request, "articles/index.html", context)
 
 
@@ -85,6 +137,7 @@ def comment(request, pk):
             comment.save()
             return redirect("articles:detail", pk)
 
+
 # 좋아요~~~
 def like(request, pk):
     article = Article.objects.get(pk=pk)
@@ -94,10 +147,8 @@ def like(request, pk):
     else:
         article.like_users.add(request.user)
         is_liked = True
-    context = {'isLiked': is_liked, 'likeCount': article.like_users.count()}
+    context = {"isLiked": is_liked, "likeCount": article.like_users.count()}
     return JsonResponse(context)
-
-
 
 
 def search(request):
@@ -114,4 +165,3 @@ def search(request):
             request,
             "articles/searched.html",
         )
-
