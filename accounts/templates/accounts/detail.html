@@ -46,8 +46,7 @@
         {% for comment in user.comment_set.all %}
         <p>
             {{ forloop.counter }}
-            <a class="text-decoration-none" href="{% url 'articles:detail' comment.article.pk %}">{{ comment.content
-                }}</a>
+            <a class="text-decoration-none" href="{% url 'articles:detail' comment.article.pk %}">{{ comment.content }}</a>
         </p>
         {% endfor %}
     </div>
