@@ -79,6 +79,7 @@
             <div>
                 <a href="{% url 'articles:create' %}" class="btn btn-primary">질문하기</a>
             </div>
+            <!-- 간편 로그인 -->
         </div>
         {% if request.user.is_authenticated %}
         <div class="col-lg-2">
@@ -96,6 +97,7 @@
             <div class="p-3 mb-2 bg-primary ">
             </div>
         </div>
+        <!-- 간편 로그인 end-->
     </div>
     {% endif %}
 </div>
