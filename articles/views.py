@@ -16,60 +16,10 @@ def index(request):
     paginator = Paginator(articles, 10)
     page_obj = paginator.get_page(page)
     form = AuthenticationForm()
-    user = get_user_model().objects.get(pk=pk)
-    weight = user.userweights
-    tall = user.usertall
-    if user.gender == 1:
-        fat = (weight * user.userfat) / 100
-        standard_w = ((tall / 100) ** 2) * 22
-        standard_nf = standard_w * 0.85
-        standard_f = standard_w * 0.15
-        score = 80 - (standard_nf - (weight - fat)) + (standard_f - fat)
-        if score > 150:
-            tier = 1
-        elif score > 130:
-            tier = 2
-        elif score > 110:
-            tier = 3
-        elif score > 90:
-            tier = 4
-        elif score > 80:
-            tier = 5
-        elif score > 70:
-            tier = 6
-        elif score > 60:
-            tier = 7
-        else:
-            tier = 8
-    else:
-        fat = (weight * user.userfat) / 100
-        standard_w = ((tall / 100) ** 2) * 22
-        standard_nf = standard_w * 0.77
-        standard_f = standard_w * 0.23
-        score = 80 - (standard_nf - (weight - fat)) + (standard_f - fat)
-        if score > 150:
-            tier = 1
-        elif score > 130:
-            tier = 2
-        elif score > 110:
-            tier = 3
-        elif score > 90:
-            tier = 4
-        elif score > 80:
-            tier = 5
-        elif score > 70:
-            tier = 6
-        elif score > 60:
-            tier = 7
-        else:
-            tier = 8
 
     context = {
         "articles": page_obj,
         "form": form,
-        "user": user,
-        "score": score,
-        "tier": tier,
     }
 
     return render(request, "articles/index.html", context)
@@ -152,16 +102,10 @@ def like(request, pk):
 
 
 def search(request):
-    if request.method == "POST":
-        searched = request.POST["searched"]
-        articles = Article.objects.filter(title__contains=searched)
-        return render(
-            request,
-            "articles/searched.html",
-            {"searched": searched, "articles": articles},
-        )
-    else:
-        return render(
-            request,
-            "articles/searched.html",
-        )
+    searched = request.GET.get("search")
+    articles = Article.objects.filter(title__contains=searched)
+    return render(
+        request,
+        "articles/searched.html",
+        {"searched": searched, "articles": articles},)
+

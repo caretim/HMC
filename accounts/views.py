@@ -15,7 +15,55 @@ def signup(request):
     if request.method == "POST":
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
-            user = form.save()
+            user = form.save(commit=False)
+            weight = user.userweights
+            tall = user.usertall
+            if user.gender == 1:
+                fat = (weight * user.userfat) / 100
+                standard_w = ((tall / 100) ** 2) * 22
+                standard_nf = standard_w * 0.85
+                standard_f = standard_w * 0.15
+                score = 80 - (standard_nf - (weight - fat)) + (standard_f - fat)
+                if score > 150:
+                    tier = 1
+                elif score > 130:
+                    tier = 2
+                elif score > 110:
+                    tier = 3
+                elif score > 90:
+                    tier = 4
+                elif score > 80:
+                    tier = 5
+                elif score > 70:
+                    tier = 6
+                elif score > 60:
+                    tier = 7
+                else:
+                    tier = 8
+            else:
+                fat = (weight * user.userfat) / 100
+                standard_w = ((tall / 100) ** 2) * 22
+                standard_nf = standard_w * 0.77
+                standard_f = standard_w * 0.23
+                score = 80 - (standard_nf - (weight - fat)) + (standard_f - fat)
+                if score > 150:
+                    tier = 1
+                elif score > 130:
+                    tier = 2
+                elif score > 110:
+                    tier = 3
+                elif score > 90:
+                    tier = 4
+                elif score > 80:
+                    tier = 5
+                elif score > 70:
+                    tier = 6
+                elif score > 60:
+                    tier = 7
+                else:
+                    tier = 8
+            user.tier = tier
+            user.save()
             my_login(request, user)
             return redirect("articles:index")
     else:
@@ -31,59 +79,13 @@ def ID_delete(request):
     my_logout(request)
     return redirect("articles:index")
 
+
 # Create your views here.
 def detail(request, pk):
     user = get_user_model().objects.get(pk=pk)
-    weight = user.userweights
-    tall = user.usertall
-    if user.gender == 1:
-        fat = (weight*user.userfat)/100
-        standard_w = ((tall/100)**2)*22
-        standard_nf = standard_w*0.85
-        standard_f = standard_w*0.15
-        score = 80 -(standard_nf-(weight-fat))+(standard_f-fat)
-        if score > 150:
-            tier = 1
-        elif score > 130 :
-            tier = 2
-        elif score > 110:
-            tier = 3
-        elif score > 90 :
-            tier = 4
-        elif score > 80 :
-            tier = 5
-        elif score > 70 :
-            tier = 6
-        elif score > 60 :
-            tier = 7
-        else:
-            tier = 8
-    else:
-        fat = (weight*user.userfat)/100
-        standard_w = ((tall/100)**2)*22
-        standard_nf = standard_w*0.77
-        standard_f = standard_w*0.23
-        score = 80 -(standard_nf-(weight-fat))+(standard_f-fat)
-        if score > 150:
-            tier = 1
-        elif score > 130 :
-            tier = 2
-        elif score > 110:
-            tier = 3
-        elif score > 90 :
-            tier = 4
-        elif score > 80 :
-            tier = 5
-        elif score > 70 :
-            tier = 6
-        elif score > 60 :
-            tier = 7
-        else:
-            tier = 8
-    context = { 
-            "user": user,
-            "score": score,
-            "tier": tier }
+    context = {
+        "user": user,
+    }
     return render(request, "accounts/detail.html", context)
 
 
@@ -108,13 +110,60 @@ def logout(request):
 
 @login_required
 def update(request, pk):
+    user = get_user_model().objects.get(pk=pk)
     if request.method == "POST":
-        user = get_user_model().objects.get(pk=pk)
-        if request.user == user.user:
-            form = CustomUserChangeForm(request.POST, instance=request.user)
-            form.is_valid()
-            form.save()
-            return redirect("article:index")
+        form = CustomUserChangeForm(request.POST, instance=request.user)
+        if form.is_valid():
+            user = form.save(commit=False)
+            weight = user.userweights
+            tall = user.usertall
+            if user.gender == 1:
+                fat = (weight * user.userfat) / 100
+                standard_w = ((tall / 100) ** 2) * 22
+                standard_nf = standard_w * 0.85
+                standard_f = standard_w * 0.15
+                score = 80 - (standard_nf - (weight - fat)) + (standard_f - fat)
+                if score > 150:
+                    tier = 1
+                elif score > 130:
+                    tier = 2
+                elif score > 110:
+                    tier = 3
+                elif score > 90:
+                    tier = 4
+                elif score > 80:
+                    tier = 5
+                elif score > 70:
+                    tier = 6
+                elif score > 60:
+                    tier = 7
+                else:
+                    tier = 8
+            else:
+                fat = (weight * user.userfat) / 100
+                standard_w = ((tall / 100) ** 2) * 22
+                standard_nf = standard_w * 0.77
+                standard_f = standard_w * 0.23
+                score = 80 - (standard_nf - (weight - fat)) + (standard_f - fat)
+                if score > 150:
+                    tier = 1
+                elif score > 130:
+                    tier = 2
+                elif score > 110:
+                    tier = 3
+                elif score > 90:
+                    tier = 4
+                elif score > 80:
+                    tier = 5
+                elif score > 70:
+                    tier = 6
+                elif score > 60:
+                    tier = 7
+                else:
+                    tier = 8
+        user.tier = tier
+        user.save()
+        return redirect("articles:index")
     else:
         form = CustomUserChangeForm(instance=request.user)
     context = {"form": form}
@@ -133,6 +182,3 @@ def follow(request, pk):
         else:
             user.followings.add(request.user)
         return redirect("accounts:detail", pk)
-
-
-

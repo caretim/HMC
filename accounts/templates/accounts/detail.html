@@ -7,7 +7,9 @@
 {% endif %}
 
 <h1>{{ user.username }}님의 프로필</h1>
-
+{%if user.tier == 1 %}
+<img src="" alt="">
+<h1>티어{{user.tier}}</h1>
 
 {% if request.user != user %}
 <div>
@@ -46,7 +48,8 @@
         {% for comment in user.comment_set.all %}
         <p>
             {{ forloop.counter }}
-            <a class="text-decoration-none" href="{% url 'articles:detail' comment.article.pk %}">{{ comment.content }}</a>
+            <a class="text-decoration-none" href="{% url 'articles:detail' comment.article.pk %}">{{ comment.content
+                }}</a>
         </p>
         {% endfor %}
     </div>
