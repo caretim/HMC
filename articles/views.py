@@ -107,5 +107,5 @@ def search(request):
     return render(
         request,
         "articles/searched.html",
-        {"searched": searched, "articles": articles},
-    )
+        {"searched": searched, "articles": articles},)
+

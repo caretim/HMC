@@ -13,12 +13,14 @@
 
 {% if request.user in article.like_users.all %}
 <button>
-<div onclick="" id="like-btn" data-article-id="{{ articles.pk }}" class="pokemon1">
-</div></button>
+    <div onclick="" id="like-btn" data-article-id="{{ articles.pk }}" class="pokemon1">
+    </div>
+</button>
 {% else %}
 <button>
-<div id="like-btn" onclick="" data-article-id="{{ articles.pk }}" class="pokemon2">
-</div></button>
+    <div id="like-btn" onclick="" data-article-id="{{ articles.pk }}" class="pokemon2">
+    </div>
+</button>
 {% endif %}
 추천
 <span id="like-count">{{ article.likecount }}</span>
