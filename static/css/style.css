@@ -1,0 +1,13 @@
+.pokemon1 {
+    background-image: url(../images/1.jpg);
+    width: 100px;
+    height: 100px;
+    background-repeat: no-repeat;
+}
+
+.pokemon2 {
+    background-image: url(../images/3.jpg);
+    width: 100px;
+    height: 100px;
+    background-repeat: no-repeat;
+}

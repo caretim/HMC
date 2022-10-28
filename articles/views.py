@@ -5,7 +5,7 @@ from .models import Article
 from django.contrib.auth import get_user_model
 from django.views.decorators.http import require_safe
 from django.core.paginator import Paginator
-
+from django.http import JsonResponse
 
 @require_safe
 def index(request):
@@ -78,8 +78,22 @@ def comment(request, pk):
             comment.user = request.user
             comment.article = article
             comment.save()
-
             return redirect("articles:detail", pk)
+
+# 좋아요~~~
+def like(request, pk):
+    article = Article.objects.get(pk=pk)
+    if request.user in article.like_users.all():
+        article.like_users.remove(request.user)
+        is_liked = False
+    else:
+        article.like_users.add(request.user)
+        is_liked = True
+    context = {'isLiked': is_liked, 'likeCount': article.like_users.count()}
+    return JsonResponse(context)
+
+
+     
 
 
 def search(request):
@@ -96,3 +110,4 @@ def search(request):
             request,
             "articles/searched.html",
         )
+
