@@ -7,6 +7,8 @@ from django.views.decorators.http import require_safe
 from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.contrib.auth.forms import AuthenticationForm
+
+
 @require_safe
 def index(request):
     page = request.GET.get("page", "1")
@@ -18,8 +20,8 @@ def index(request):
     context = {
         "articles": page_obj,
         "form": form,
-        }
-    
+    }
+
     return render(request, "articles/index.html", context)
 
 
@@ -85,6 +87,7 @@ def comment(request, pk):
             comment.save()
             return redirect("articles:detail", pk)
 
+
 # 좋아요~~~
 def like(request, pk):
     article = Article.objects.get(pk=pk)
@@ -94,24 +97,15 @@ def like(request, pk):
     else:
         article.like_users.add(request.user)
         is_liked = True
-    context = {'isLiked': is_liked, 'likeCount': article.like_users.count()}
+    context = {"isLiked": is_liked, "likeCount": article.like_users.count()}
     return JsonResponse(context)
 
 
-
-
 def search(request):
-    if request.method == "POST":
-        searched = request.POST["searched"]
-        articles = Article.objects.filter(title__contains=searched)
-        return render(
-            request,
-            "articles/searched.html",
-            {"searched": searched, "articles": articles},
-        )
-    else:
-        return render(
-            request,
-            "articles/searched.html",
-        )
-
+    searched = request.GET.get("search")
+    articles = Article.objects.filter(title__contains=searched)
+    return render(
+        request,
+        "articles/searched.html",
+        {"searched": searched, "articles": articles},
+    )

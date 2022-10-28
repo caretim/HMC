@@ -26,7 +26,7 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     {% if request.user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'accounts:detail' request.user.pk %}">{{ request.user }}</a>
+                        <a class="nav-link" href="{% url 'accounts:detail' request.user.pk %}">프로필</a>
                     </li>
                     <li class="nav-item">
                         <a href="{% url 'accounts:logout' %}" class="nav-link">{{ user.username }} (로그아웃)</a>
@@ -46,9 +46,9 @@
                     </li>
                 </ul>
                 <!-- 검색창 -->
-                <form class="d-flex" role="search" method="POST" action="{% url 'articles:search' %}">
+                <form class="d-flex" role="search" action="{% url 'articles:search' %}">
                     {% csrf_token %}
-                    <input class="form-control me-2" type="search" placeholder="제목" aria-label="제목" name="searched">
+                    <input class="form-control me-2" type="search" placeholder="제목" aria-label="제목" name="search">
                     <button class="btn btn-light" type="submit">Search</button>
                 </form>
             </div>
