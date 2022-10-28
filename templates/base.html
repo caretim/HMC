@@ -43,6 +43,12 @@
                         {% endif %}
                     </li>
                 </ul>
+                <!-- 검색창 -->
+                <form class="d-flex" role="search" method="POST" action="{% url 'articles:search' %}">
+                    {% csrf_token %}
+                    <input class="form-control me-2" type="search" placeholder="제목" aria-label="제목" name="searched">
+                    <button class="btn btn-light" type="submit">Search</button>
+                </form>
             </div>
         </div>
     </nav>
@@ -51,9 +57,15 @@
     <div class="container">
         {% block body %}{% endblock body %}
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    {% bootstrap_javascript %}
 
+
+    <footer class="text-center mt-5" style="position:absoulte; bottom:0; font-size: 10px; font-weight: 500">
+        PAIR-PJT by jaeyoon,joonhong,seungchan
+    </footer>
+
+    {% bootstrap_javascript %}
+  
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </body>
 
 </html>
