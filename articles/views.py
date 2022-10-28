@@ -8,7 +8,7 @@ from .models import Article
 from django.contrib.auth import get_user_model
 from django.views.decorators.http import require_safe
 from django.core.paginator import Paginator
-
+from django.http import JsonResponse
 
 
 
@@ -89,4 +89,18 @@ def comment(request, pk):
             comment.article = article
             comment.save()
             return render (request,"articles/detail.html",pk)
+
+
+
+# 좋아요~~~
+def like(request, pk):
+    article = Article.objects.get(pk=pk)
+    if request.user in article.like_users.all():
+        article.like_users.remove(request.user)
+        is_liked = False
+    else:
+        article.like_users.add(request.user)
+        is_liked = True
+    context = {'isLiked': is_liked, 'likeCount': article.like_users.count()}
+    return JsonResponse(context)
 
